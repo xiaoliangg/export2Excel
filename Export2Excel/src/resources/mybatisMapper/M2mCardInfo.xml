@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IM2mCardInfoDao">
+  	<resultMap id="imsisMap" type="java.lang.String"/>
+
+	<select id="queryAllDingWeiImsi" resultMap="imsisMap">
+    select imsi from m2mcard_info_t 
+    where partner_code = 'P000135' and supplier_code = '1005' and
+      (operator_code = '8007' or operator_code = '8022') order by imsi desc;
+	</select>
+	
+</mapper>    
+    
+  

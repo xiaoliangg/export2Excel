@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IResolveExport3Dao">
+  	<resultMap id="resolveExport3Map" type="com.bean.ResolveExport3"/>
+
+	<select id="getResolveExport" resultMap="resolveExport3Map">
+     select * from resolve_export_t3 where channel = #{channel} order by iccid asc,order_code asc,local_imsi asc,cdr_time asc;
+	</select>
+	
+</mapper>    
+    
+  

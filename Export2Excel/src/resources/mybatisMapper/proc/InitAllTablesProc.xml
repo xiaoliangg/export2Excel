@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.proc.InitAllTablesProc">
+     <!-- 为DAO 接口方法提供SQL 语句配置 -->
+		<select id="initAllTables" parameterMap="paramMap" statementType="CALLABLE">
+        	 CALL PROC_SIM_INIT_ALL_TABLES(?,?)
+        </select>
+     <parameterMap type="java.util.Map" id="paramMap">
+        <parameter property="IN_IMSI" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="OUT_RESULT" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+		
+</mapper>   
+    
+  

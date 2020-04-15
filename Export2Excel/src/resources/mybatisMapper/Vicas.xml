@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IVicasDao">
+  	<resultMap id="vicasSumMap" type="com.bean.VicasSum"/>
+  	<resultMap id="vicasActiveNumberMap" type="com.bean.VicasActiveNumber"/>
+  	
+	<select id="getSumAndFirstUseTime" resultMap="vicasSumMap">
+     select cdr.imsi as imsi,sim.iccid as iccid,min(cdr.start_time) as first_use_time,sum(cdr.cdr_flow) as cdr_flow from unicom_cdr_data_t cdr 
+      left join vicas_t sim on cdr.imsi=sim.imsi  where instr(#{imsis},cdr.imsi) and 
+       cdr.start_time &gt;= #{startTime} and cdr.start_time &lt; #{endTime} group by cdr.imsi;
+	</select>
+	
+	<select id="getActiveNumbers" resultMap="vicasActiveNumberMap">
+    select imsi,iccid,start_time from (select cdr.imsi,sim.iccid,min(cdr.start_time) as start_time from unicom_cdr_data_t cdr left join vicas_t 
+   sim on cdr.imsi=sim.imsi  where instr(#{imsis},cdr.imsi) group by cdr.imsi)tt where start_time &gt;= #{startTime} and start_time &lt; #{endTime};
+	</select>
+</mapper>    
+    
+  

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.proc.CountProc">
+		<select id="countResolveProc" parameterMap="paramMap" statementType="CALLABLE">
+        	 CALL PROC_SIM_RESOLVE_COUNT(?,?,?,?,?,?)
+        </select>
+     <parameterMap type="java.util.Map" id="paramMap">
+        <parameter property="IN_START_TIME" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_END_TIME" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_SUPPLIERS" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_OPERATORS" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_INCLUDE_OPERATORS" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="OUT_RESULT" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+    
+    <select id="countPartnerProc" parameterMap="paramPartnerMap" statementType="CALLABLE">
+        	 CALL PROC_SIM_PARTNER_COUNT(?,?,?,?,?,?,?)
+    </select>
+     <parameterMap type="java.util.Map" id="paramPartnerMap">
+        <parameter property="IN_PARTNER_CODE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_START_TIME" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_END_TIME" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_SUPPLIERS" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_OPERATORS" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_INCLUDE_OPERATORS" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="OUT_RESULT" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+    
+    <select id="countM2mcardZhunerProc" parameterMap="paramM2mcardZhunerMap" statementType="CALLABLE">
+        	 CALL PROC_M2MCARD_ZHUNER_COUNT(?,?,?,?,?,?,?,?)
+    </select>
+     <parameterMap type="java.util.Map" id="paramM2mcardZhunerMap">
+        <parameter property="IN_PARTNER_CODE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_PACKAGE_CODE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_START_TIME" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_END_TIME" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_SUPPLIERS" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_OPERATORS" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_INCLUDE_OPERATORS" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="OUT_RESULT" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+    
+    <select id="countProcChunmo" parameterMap="paramMap2" statementType="CALLABLE">
+        	 CALL PROC_YL_COUNT_CHUNMO(?,?,?,?)
+     </select>
+     <parameterMap type="java.util.Map" id="paramMap2">
+        <parameter property="IN_START_TIME" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_END_TIME" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IN_SUPPLIERS" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="OUT_RESULT" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+</mapper>   
+    
+  

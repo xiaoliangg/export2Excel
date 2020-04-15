@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IC9LfeuTapDataDao">
+  	<resultMap id="dingWeiExportMap" type="com.bean.DingWeiExport"/>
+  	<resultMap id="dingWeiMonthMap" type="com.bean.DingWeiMonth"/>
+  	<resultMap id="c9LfeuTapDataMap" type="com.bean.C9LfeuTapData"/>
+
+	<select id="query1" resultMap="dingWeiExportMap">
+ select imsi as imsi1,min(call_time) as firstCdr,max(call_time) as lastCdr,
+ sum(charged_units)/1024/1024 as totalUsage,round(sum(charge),8) as totalCost
+ from c9_tap_data_t where call_time &gt;= #{startTime} and call_time &lt; #{endTime} and instr(#{imsis},imsi) group by imsi order by imsi asc;
+	</select>
+	
+	<select id="queryMonth" resultMap="dingWeiMonthMap">
+ select imsi as imsi1,left(#{startTime},7) as month,sum(charged_units)/1024/1024 as totalUsage,round(sum(charge),8) as totalCost
+ from c9_tap_data_t where call_time &gt;= #{startTime} and call_time &lt; #{endTime} and instr(#{imsis},imsi) group by imsi order by imsi asc;
+	</select>
+	
+	<select id="queryAll" resultMap="c9LfeuTapDataMap">
+select imsi,call_time,operator,profile_tadig,chargable_units,charged_units,charge,round((charge*1024*1024)/charged_units,8) as per_mb_cost from c9_tap_data_t
+ order by imsi desc,call_time desc;
+	</select>
+	
+	<select id="queryAllDingWei" resultMap="c9LfeuTapDataMap">
+select imsi,call_time,operator,profile_tadig,chargable_units,charged_units,charge,round((charge*1024*1024)/charged_units,8) as per_mb_cost from c9_tap_data_t
+where call_time &gt;= #{startTime} and call_time &lt; #{endTime} and instr(#{imsis},imsi)
+ order by imsi desc,call_time desc;
+	</select>
+</mapper>    
+    
+  

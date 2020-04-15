@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.IResolvePackageOrderDaysDao">
+  	<resultMap id="packageUseDetailsMap" type="com.bean.PackageUseDetails"/>
+  	<resultMap id="daysOrdersNumberMap" type="com.bean.DaysOrdersNumber"/>
+  	<resultMap id="orderDaysMap" type="com.bean.ResolvePackageOrderDays"/>
+
+	<select id="getPackageUseDetails" resultMap="packageUseDetailsMap">
+     select package_name,count(1) as numbert,round(sum(cdr_byte)/count(1)) average,sum(cdr_byte) as sumt from resolve_package_order_days where channel = #{channel} group by package_name;
+	</select>
+	
+    <select id="getDaysOrdersNumber" resultMap="daysOrdersNumberMap">
+select days,count(1) as numbert from resolve_package_order_days where package_name = #{packageName} and channel = #{channel} and (days &lt;&gt; '1' or cdr_byte &lt;&gt;'0') group by days order by days asc;
+	</select>
+	
+	<select id="getUnusedOrdersNumber" resultMap="orderDaysMap">
+select * from resolve_package_order_days where package_name = #{packageName} and channel = #{channel} and days = '1' and cdr_byte = '0';
+	</select>
+</mapper>    
+    
+  
